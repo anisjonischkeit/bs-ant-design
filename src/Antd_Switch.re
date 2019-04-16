@@ -61,6 +61,82 @@ let make =
       ),
     children,
   );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "onChange": option('onChange),
+        "unCheckedChildren": option('unCheckedChildren),
+        "size": option('size),
+        "loading": option('loading),
+        "disabled": option('disabled),
+        "defaultChecked": option('defaultChecked),
+        "checkedChildren": option('checkedChildren),
+        "checked": option('checked),
+        "autoFocus": option('autoFocus),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~onChange=?reactProps##onChange,
+      ~unCheckedChildren=?reactProps##unCheckedChildren,
+      ~size=?reactProps##size,
+      ~loading=?reactProps##loading,
+      ~disabled=?reactProps##disabled,
+      ~defaultChecked=?reactProps##defaultChecked,
+      ~checkedChildren=?reactProps##checkedChildren,
+      ~checked=?reactProps##checked,
+      ~autoFocus=?reactProps##autoFocus,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~autoFocus: 'autoFocus=?,
+    ~checked: 'checked=?,
+    ~checkedChildren: 'checkedChildren=?,
+    ~defaultChecked: 'defaultChecked=?,
+    ~disabled: 'disabled=?,
+    ~loading: 'loading=?,
+    ~size: 'size=?,
+    ~unCheckedChildren: 'unCheckedChildren=?,
+    ~onChange: 'onChange=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "onChange": option('onChange),
+    "unCheckedChildren": option('unCheckedChildren),
+    "size": option('size),
+    "loading": option('loading),
+    "disabled": option('disabled),
+    "defaultChecked": option('defaultChecked),
+    "checkedChildren": option('checkedChildren),
+    "checked": option('checked),
+    "autoFocus": option('autoFocus),
+    "children": 'children,
+  } =
+  "";
 
 /*
  autoFocus	get focus when component mounted	boolean	false

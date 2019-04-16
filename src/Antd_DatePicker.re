@@ -1,6 +1,7 @@
 [%bs.raw {|require("antd/lib/date-picker/style")|}];
 
-[@bs.module] external reactClass: ReasonReact.reactClass = "antd/lib/date-picker";
+[@bs.module]
+external reactClass: ReasonReact.reactClass = "antd/lib/date-picker";
 
 [@bs.deriving jsConverter]
 type pickerSize = [ | `small | `default | `large];
@@ -9,7 +10,8 @@ type moment = MomentRe.Moment.t;
 
 type boolOrProps(_) =
   | ShowTimeBool(bool): boolOrProps(bool)
-  | ShowTimeProps(Antd_TimePicker.t('a)): boolOrProps(Antd_TimePicker.t('a));
+  | ShowTimeProps(Antd_TimePicker.t('a))
+    : boolOrProps(Antd_TimePicker.t('a));
 
 let boolOrPropsToProp = (type a, boolOrProps: boolOrProps(a)): a =>
   switch (boolOrProps) {
@@ -20,7 +22,6 @@ let boolOrPropsToProp = (type a, boolOrProps: boolOrProps(a)): a =>
 type t('a) = Js.t({. datePickerProps: int} as 'a);
 
 [@bs.obj]
-/*export interface DatePickerProps extends PickerProps, SinglePickerProps*/
 external makeProps:
   (
     ~showTime: 'a=?, /* TimePickerProps | boolean; */
@@ -30,12 +31,10 @@ external makeProps:
     ~onOpenChange: bool => unit=?,
     ~onOk: moment => unit=?,
     ~placeholder: string=?,
-    /*export interface SinglePickerProps*/
     ~value: moment=?,
     ~defaultValue: moment=?,
     ~defaultPickerValue: moment=?,
     ~onChange: (moment, string) => unit=?,
-    /*export interface PickerProps*/
     ~prefixCls: string=?,
     ~inputPrefixCls: string=?,
     ~format: string=?,
@@ -122,14 +121,12 @@ let make =
   );
 
 module RangePicker = {
-  [@bs.module "antd/lib/date-picker"] external reactClass: ReasonReact.reactClass = "RangePicker";
-  /* it is using rc-calendar internally and just passing the mode to it. */
-  /* enum('time', 'date', 'month', 'year', 'decade') */
+  [@bs.module "antd/lib/date-picker"]
+  external reactClass: ReasonReact.reactClass = "RangePicker";
   [@bs.deriving jsConverter]
   type rangePickerMode = [ | `time | `date | `month | `year | `decade];
   type t('a) = Js.t({. rangePickerProps: int} as 'a);
   [@bs.obj]
-  /*export interface RangePickerProps extends PickerProps*/
   external makeProps:
     (
       ~value: 'a=?,
@@ -144,7 +141,6 @@ module RangePicker = {
       ~mode: string=?,
       ~disabledTime: (moment, string) => 'h=?, /* todo: (current: moment.Moment, type: string) => { disabledHours?: () => number[],disabledMinutes?: () => number[], disabledSeconds?: () => number[],}; */
       ~onPanelChange: 'i=?, /* todo: onPanelChange?: (value?: RangePickerValue, mode?: string | string[]) => void;*/
-      /*export interface PickerProps*/
       ~prefixCls: string=?,
       ~inputPrefixCls: string=?,
       ~format: string=?,
@@ -233,25 +229,163 @@ module RangePicker = {
         ),
       children,
     );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "style": option('style),
+          "className": option('className),
+          "id": option('id),
+          "dateRender": option('dateRender),
+          "renderExtraFooter": option('renderExtraFooter),
+          "disabledDate": option('disabledDate),
+          "_open": option('T_open),
+          "getCalendarContainer": option('getCalendarContainer),
+          "size": option('size),
+          "locale": option('locale),
+          "popupStyle": option('popupStyle),
+          "allowClear": option('allowClear),
+          "disabled": option('disabled),
+          "format": option('format),
+          "inputPrefixCls": option('inputPrefixCls),
+          "prefixCls": option('prefixCls),
+          "onPanelChange": option('onPanelChange),
+          "disabledTime": option('disabledTime),
+          "mode": option('mode),
+          "placeholder": option('placeholder),
+          "ranges": option('ranges),
+          "showTime": option('showTime),
+          "onOk": option('onOk),
+          "onCalendarChange": option('onCalendarChange),
+          "onChange": option('onChange),
+          "defaultPickerValue": option('defaultPickerValue),
+          "defaultValue": option('defaultValue),
+          "value": option('value),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~style=?reactProps##style,
+        ~className=?reactProps##className,
+        ~id=?reactProps##id,
+        ~dateRender=?reactProps##dateRender,
+        ~renderExtraFooter=?reactProps##renderExtraFooter,
+        ~disabledDate=?reactProps##disabledDate,
+        ~_open=?reactProps##_open,
+        ~getCalendarContainer=?reactProps##getCalendarContainer,
+        ~size=?reactProps##size,
+        ~locale=?reactProps##locale,
+        ~popupStyle=?reactProps##popupStyle,
+        ~allowClear=?reactProps##allowClear,
+        ~disabled=?reactProps##disabled,
+        ~format=?reactProps##format,
+        ~inputPrefixCls=?reactProps##inputPrefixCls,
+        ~prefixCls=?reactProps##prefixCls,
+        ~onPanelChange=?reactProps##onPanelChange,
+        ~disabledTime=?reactProps##disabledTime,
+        ~mode=?reactProps##mode,
+        ~placeholder=?reactProps##placeholder,
+        ~ranges=?reactProps##ranges,
+        ~showTime=?reactProps##showTime,
+        ~onOk=?reactProps##onOk,
+        ~onCalendarChange=?reactProps##onCalendarChange,
+        ~onChange=?reactProps##onChange,
+        ~defaultPickerValue=?reactProps##defaultPickerValue,
+        ~defaultValue=?reactProps##defaultValue,
+        ~value=?reactProps##value,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~value: 'value=?,
+      ~defaultValue: 'defaultValue=?,
+      ~defaultPickerValue: 'defaultPickerValue=?,
+      ~onChange: 'onChange=?,
+      ~onCalendarChange: 'onCalendarChange=?,
+      ~onOk: 'onOk=?,
+      ~showTime: 'showTime=?,
+      ~ranges: 'ranges=?,
+      ~placeholder: 'placeholder=?,
+      ~mode: 'mode=?,
+      ~disabledTime: 'disabledTime=?,
+      ~onPanelChange: 'onPanelChange=?,
+      ~prefixCls: 'prefixCls=?,
+      ~inputPrefixCls: 'inputPrefixCls=?,
+      ~format: 'format=?,
+      ~disabled: 'disabled=?,
+      ~allowClear: 'allowClear=?,
+      ~popupStyle: 'popupStyle=?,
+      ~locale: 'locale=?,
+      ~size: 'size=?,
+      ~getCalendarContainer: 'getCalendarContainer=?,
+      ~_open: 'T_open=?,
+      ~disabledDate: 'disabledDate=?,
+      ~renderExtraFooter: 'renderExtraFooter=?,
+      ~dateRender: 'dateRender=?,
+      ~id: 'id=?,
+      ~className: 'className=?,
+      ~style: 'style=?,
+      unit
+    ) =>
+    {
+      .
+      "style": option('style),
+      "className": option('className),
+      "id": option('id),
+      "dateRender": option('dateRender),
+      "renderExtraFooter": option('renderExtraFooter),
+      "disabledDate": option('disabledDate),
+      "_open": option('T_open),
+      "getCalendarContainer": option('getCalendarContainer),
+      "size": option('size),
+      "locale": option('locale),
+      "popupStyle": option('popupStyle),
+      "allowClear": option('allowClear),
+      "disabled": option('disabled),
+      "format": option('format),
+      "inputPrefixCls": option('inputPrefixCls),
+      "prefixCls": option('prefixCls),
+      "onPanelChange": option('onPanelChange),
+      "disabledTime": option('disabledTime),
+      "mode": option('mode),
+      "placeholder": option('placeholder),
+      "ranges": option('ranges),
+      "showTime": option('showTime),
+      "onOk": option('onOk),
+      "onCalendarChange": option('onCalendarChange),
+      "onChange": option('onChange),
+      "defaultPickerValue": option('defaultPickerValue),
+      "defaultValue": option('defaultValue),
+      "value": option('value),
+      "children": 'children,
+    } =
+    "";
 };
 
 module MonthPicker = {
-  [@bs.module "antd/lib/date-picker"] external reactClass: ReasonReact.reactClass = "MonthPicker";
+  [@bs.module "antd/lib/date-picker"]
+  external reactClass: ReasonReact.reactClass = "MonthPicker";
   type t('a) = Js.t({. monthPickerProps: int} as 'a);
   [@bs.obj]
-  /*export interface MonthPickerProps extends PickerProps, SinglePickerProps*/
   external makeProps:
     (
       ~_open: bool=?,
       ~onOpenChange: bool => unit=?,
       ~placeholder: string=?,
       ~monthCellContentRender: (moment, 'a) => ReasonReact.reactElement=?, /* not in interface.tsx */
-      /*export interface SinglePickerProps*/
       ~value: moment=?,
       ~defaultValue: moment=?,
       ~defaultPickerValue: moment=?,
       ~onChange: (moment, string) => unit=?,
-      /*export interface PickerProps*/
       ~prefixCls: string=?,
       ~inputPrefixCls: string=?,
       ~format: string=?,
@@ -329,24 +463,142 @@ module MonthPicker = {
         ),
       children,
     );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "style": option('style),
+          "className": option('className),
+          "id": option('id),
+          "dateRender": option('dateRender),
+          "renderExtraFooter": option('renderExtraFooter),
+          "disabledDate": option('disabledDate),
+          "getCalendarContainer": option('getCalendarContainer),
+          "size": option('size),
+          "locale": option('locale),
+          "popupStyle": option('popupStyle),
+          "allowClear": option('allowClear),
+          "disabled": option('disabled),
+          "format": option('format),
+          "inputPrefixCls": option('inputPrefixCls),
+          "prefixCls": option('prefixCls),
+          "onChange": option('onChange),
+          "defaultPickerValue": option('defaultPickerValue),
+          "defaultValue": option('defaultValue),
+          "value": option('value),
+          "monthCellContentRender": option('monthCellContentRender),
+          "placeholder": option('placeholder),
+          "onOpenChange": option('onOpenChange),
+          "_open": option('T_open),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~style=?reactProps##style,
+        ~className=?reactProps##className,
+        ~id=?reactProps##id,
+        ~dateRender=?reactProps##dateRender,
+        ~renderExtraFooter=?reactProps##renderExtraFooter,
+        ~disabledDate=?reactProps##disabledDate,
+        ~getCalendarContainer=?reactProps##getCalendarContainer,
+        ~size=?reactProps##size,
+        ~locale=?reactProps##locale,
+        ~popupStyle=?reactProps##popupStyle,
+        ~allowClear=?reactProps##allowClear,
+        ~disabled=?reactProps##disabled,
+        ~format=?reactProps##format,
+        ~inputPrefixCls=?reactProps##inputPrefixCls,
+        ~prefixCls=?reactProps##prefixCls,
+        ~onChange=?reactProps##onChange,
+        ~defaultPickerValue=?reactProps##defaultPickerValue,
+        ~defaultValue=?reactProps##defaultValue,
+        ~value=?reactProps##value,
+        ~monthCellContentRender=?reactProps##monthCellContentRender,
+        ~placeholder=?reactProps##placeholder,
+        ~onOpenChange=?reactProps##onOpenChange,
+        ~_open=?reactProps##_open,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~_open: 'T_open=?,
+      ~onOpenChange: 'onOpenChange=?,
+      ~placeholder: 'placeholder=?,
+      ~monthCellContentRender: 'monthCellContentRender=?,
+      ~value: 'value=?,
+      ~defaultValue: 'defaultValue=?,
+      ~defaultPickerValue: 'defaultPickerValue=?,
+      ~onChange: 'onChange=?,
+      ~prefixCls: 'prefixCls=?,
+      ~inputPrefixCls: 'inputPrefixCls=?,
+      ~format: 'format=?,
+      ~disabled: 'disabled=?,
+      ~allowClear: 'allowClear=?,
+      ~popupStyle: 'popupStyle=?,
+      ~locale: 'locale=?,
+      ~size: 'size=?,
+      ~getCalendarContainer: 'getCalendarContainer=?,
+      ~disabledDate: 'disabledDate=?,
+      ~renderExtraFooter: 'renderExtraFooter=?,
+      ~dateRender: 'dateRender=?,
+      ~id: 'id=?,
+      ~className: 'className=?,
+      ~style: 'style=?,
+      unit
+    ) =>
+    {
+      .
+      "style": option('style),
+      "className": option('className),
+      "id": option('id),
+      "dateRender": option('dateRender),
+      "renderExtraFooter": option('renderExtraFooter),
+      "disabledDate": option('disabledDate),
+      "getCalendarContainer": option('getCalendarContainer),
+      "size": option('size),
+      "locale": option('locale),
+      "popupStyle": option('popupStyle),
+      "allowClear": option('allowClear),
+      "disabled": option('disabled),
+      "format": option('format),
+      "inputPrefixCls": option('inputPrefixCls),
+      "prefixCls": option('prefixCls),
+      "onChange": option('onChange),
+      "defaultPickerValue": option('defaultPickerValue),
+      "defaultValue": option('defaultValue),
+      "value": option('value),
+      "monthCellContentRender": option('monthCellContentRender),
+      "placeholder": option('placeholder),
+      "onOpenChange": option('onOpenChange),
+      "_open": option('T_open),
+      "children": 'children,
+    } =
+    "";
 };
 
 module WeekPicker = {
-  [@bs.module "antd/lib/date-picker"] external reactClass: ReasonReact.reactClass = "WeekPicker";
+  [@bs.module "antd/lib/date-picker"]
+  external reactClass: ReasonReact.reactClass = "WeekPicker";
   type t('a) = Js.t({. weekPickerProps: int} as 'a);
   [@bs.obj]
-  /*export interface WeekPickerProps extends PickerProps, SinglePickerProps*/
   external makeProps:
     (
       ~_open: bool=?,
       ~onOpenChange: bool => unit=?,
       ~placeholder: string=?,
-      /*export interface SinglePickerProps*/
       ~value: moment=?,
       ~defaultValue: moment=?,
       ~defaultPickerValue: moment=?,
       ~onChange: (moment, string) => unit=?,
-      /*export interface PickerProps*/
       ~prefixCls: string=?,
       ~inputPrefixCls: string=?,
       ~format: string=?,
@@ -422,7 +674,324 @@ module WeekPicker = {
         ),
       children,
     );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "style": option('style),
+          "className": option('className),
+          "id": option('id),
+          "dateRender": option('dateRender),
+          "renderExtraFooter": option('renderExtraFooter),
+          "disabledDate": option('disabledDate),
+          "getCalendarContainer": option('getCalendarContainer),
+          "size": option('size),
+          "locale": option('locale),
+          "popupStyle": option('popupStyle),
+          "allowClear": option('allowClear),
+          "disabled": option('disabled),
+          "format": option('format),
+          "inputPrefixCls": option('inputPrefixCls),
+          "prefixCls": option('prefixCls),
+          "onChange": option('onChange),
+          "defaultPickerValue": option('defaultPickerValue),
+          "defaultValue": option('defaultValue),
+          "value": option('value),
+          "placeholder": option('placeholder),
+          "onOpenChange": option('onOpenChange),
+          "_open": option('T_open),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~style=?reactProps##style,
+        ~className=?reactProps##className,
+        ~id=?reactProps##id,
+        ~dateRender=?reactProps##dateRender,
+        ~renderExtraFooter=?reactProps##renderExtraFooter,
+        ~disabledDate=?reactProps##disabledDate,
+        ~getCalendarContainer=?reactProps##getCalendarContainer,
+        ~size=?reactProps##size,
+        ~locale=?reactProps##locale,
+        ~popupStyle=?reactProps##popupStyle,
+        ~allowClear=?reactProps##allowClear,
+        ~disabled=?reactProps##disabled,
+        ~format=?reactProps##format,
+        ~inputPrefixCls=?reactProps##inputPrefixCls,
+        ~prefixCls=?reactProps##prefixCls,
+        ~onChange=?reactProps##onChange,
+        ~defaultPickerValue=?reactProps##defaultPickerValue,
+        ~defaultValue=?reactProps##defaultValue,
+        ~value=?reactProps##value,
+        ~placeholder=?reactProps##placeholder,
+        ~onOpenChange=?reactProps##onOpenChange,
+        ~_open=?reactProps##_open,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~_open: 'T_open=?,
+      ~onOpenChange: 'onOpenChange=?,
+      ~placeholder: 'placeholder=?,
+      ~value: 'value=?,
+      ~defaultValue: 'defaultValue=?,
+      ~defaultPickerValue: 'defaultPickerValue=?,
+      ~onChange: 'onChange=?,
+      ~prefixCls: 'prefixCls=?,
+      ~inputPrefixCls: 'inputPrefixCls=?,
+      ~format: 'format=?,
+      ~disabled: 'disabled=?,
+      ~allowClear: 'allowClear=?,
+      ~popupStyle: 'popupStyle=?,
+      ~locale: 'locale=?,
+      ~size: 'size=?,
+      ~getCalendarContainer: 'getCalendarContainer=?,
+      ~disabledDate: 'disabledDate=?,
+      ~renderExtraFooter: 'renderExtraFooter=?,
+      ~dateRender: 'dateRender=?,
+      ~id: 'id=?,
+      ~className: 'className=?,
+      ~style: 'style=?,
+      unit
+    ) =>
+    {
+      .
+      "style": option('style),
+      "className": option('className),
+      "id": option('id),
+      "dateRender": option('dateRender),
+      "renderExtraFooter": option('renderExtraFooter),
+      "disabledDate": option('disabledDate),
+      "getCalendarContainer": option('getCalendarContainer),
+      "size": option('size),
+      "locale": option('locale),
+      "popupStyle": option('popupStyle),
+      "allowClear": option('allowClear),
+      "disabled": option('disabled),
+      "format": option('format),
+      "inputPrefixCls": option('inputPrefixCls),
+      "prefixCls": option('prefixCls),
+      "onChange": option('onChange),
+      "defaultPickerValue": option('defaultPickerValue),
+      "defaultValue": option('defaultValue),
+      "value": option('value),
+      "placeholder": option('placeholder),
+      "onOpenChange": option('onOpenChange),
+      "_open": option('T_open),
+      "children": 'children,
+    } =
+    "";
 };
+
+module Locale = {
+  module Lang = {
+    [@bs.deriving abstract]
+    type t =
+      pri {
+        placeholder: string,
+        rangePlaceholder: array(string),
+        today: string,
+        now: string,
+        backToToday: string,
+        ok: string,
+        clear: string,
+        month: string,
+        year: string,
+        timeSelect: string,
+        dateSelect: string,
+        weekSelect: string,
+        monthSelect: string,
+        yearSelect: string,
+        decadeSelect: string,
+        yearFormat: string,
+        dateFormat: string,
+        dayFormat: string,
+        dateTimeFormat: string,
+        monthBeforeYear: bool,
+        previousMonth: string,
+        nextMonth: string,
+        previousYear: string,
+        nextYear: string,
+        previousDecade: string,
+        nextDecade: string,
+        previousCentury: string,
+        nextCentury: string,
+      };
+  };
+
+  [@bs.deriving abstract]
+  type t =
+    pri {
+      lang: Lang.t,
+      timePickerLocale: Antd_TimePicker.Locale.t,
+    };
+};
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "dateRender": option('dateRender),
+        "disabledDate": option('disabledDate),
+        "getCalendarContainer": option('getCalendarContainer),
+        "size": option('size),
+        "locale": option('locale),
+        "popupStyle": option('popupStyle),
+        "allowClear": option('allowClear),
+        "renderExtraFooter": option('renderExtraFooter),
+        "disabled": option('disabled),
+        "format": option('format),
+        "inputPrefixCls": option('inputPrefixCls),
+        "prefixCls": option('prefixCls),
+        "onChange": option('onChange),
+        "defaultPickerValue": option('defaultPickerValue),
+        "defaultValue": option('defaultValue),
+        "value": option('value),
+        "placeholder": option('placeholder),
+        "onOk": option('onOk),
+        "onOpenChange": option('onOpenChange),
+        "disabledTime": option('disabledTime),
+        "_open": option('T_open),
+        "showToday": option('showToday),
+        "showTime": option('showTime),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~dateRender=?reactProps##dateRender,
+      ~disabledDate=?reactProps##disabledDate,
+      ~getCalendarContainer=?reactProps##getCalendarContainer,
+      ~size=?reactProps##size,
+      ~locale=?reactProps##locale,
+      ~popupStyle=?reactProps##popupStyle,
+      ~allowClear=?reactProps##allowClear,
+      ~renderExtraFooter=?reactProps##renderExtraFooter,
+      ~disabled=?reactProps##disabled,
+      ~format=?reactProps##format,
+      ~inputPrefixCls=?reactProps##inputPrefixCls,
+      ~prefixCls=?reactProps##prefixCls,
+      ~onChange=?reactProps##onChange,
+      ~defaultPickerValue=?reactProps##defaultPickerValue,
+      ~defaultValue=?reactProps##defaultValue,
+      ~value=?reactProps##value,
+      ~placeholder=?reactProps##placeholder,
+      ~onOk=?reactProps##onOk,
+      ~onOpenChange=?reactProps##onOpenChange,
+      ~disabledTime=?reactProps##disabledTime,
+      ~_open=?reactProps##_open,
+      ~showToday=?reactProps##showToday,
+      ~showTime=?reactProps##showTime,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~showTime: 'showTime=?,
+    ~showToday: 'showToday=?,
+    ~_open: 'T_open=?,
+    ~disabledTime: 'disabledTime=?,
+    ~onOpenChange: 'onOpenChange=?,
+    ~onOk: 'onOk=?,
+    ~placeholder: 'placeholder=?,
+    ~value: 'value=?,
+    ~defaultValue: 'defaultValue=?,
+    ~defaultPickerValue: 'defaultPickerValue=?,
+    ~onChange: 'onChange=?,
+    ~prefixCls: 'prefixCls=?,
+    ~inputPrefixCls: 'inputPrefixCls=?,
+    ~format: 'format=?,
+    ~disabled: 'disabled=?,
+    ~renderExtraFooter: 'renderExtraFooter=?,
+    ~allowClear: 'allowClear=?,
+    ~popupStyle: 'popupStyle=?,
+    ~locale: 'locale=?,
+    ~size: 'size=?,
+    ~getCalendarContainer: 'getCalendarContainer=?,
+    ~disabledDate: 'disabledDate=?,
+    ~dateRender: 'dateRender=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "dateRender": option('dateRender),
+    "disabledDate": option('disabledDate),
+    "getCalendarContainer": option('getCalendarContainer),
+    "size": option('size),
+    "locale": option('locale),
+    "popupStyle": option('popupStyle),
+    "allowClear": option('allowClear),
+    "renderExtraFooter": option('renderExtraFooter),
+    "disabled": option('disabled),
+    "format": option('format),
+    "inputPrefixCls": option('inputPrefixCls),
+    "prefixCls": option('prefixCls),
+    "onChange": option('onChange),
+    "defaultPickerValue": option('defaultPickerValue),
+    "defaultValue": option('defaultValue),
+    "value": option('value),
+    "placeholder": option('placeholder),
+    "onOk": option('onOk),
+    "onOpenChange": option('onOpenChange),
+    "disabledTime": option('disabledTime),
+    "_open": option('T_open),
+    "showToday": option('showToday),
+    "showTime": option('showTime),
+    "children": 'children,
+  } =
+  "";
+
+/*export interface DatePickerProps extends PickerProps, SinglePickerProps*/
+
+/*export interface SinglePickerProps*/
+
+/*export interface PickerProps*/
+
+/* it is using rc-calendar internally and just passing the mode to it. */
+/* enum('time', 'date', 'month', 'year', 'decade') */
+
+/*export interface RangePickerProps extends PickerProps*/
+
+/*export interface PickerProps*/
+
+/*export interface MonthPickerProps extends PickerProps, SinglePickerProps*/
+
+/*export interface SinglePickerProps*/
+
+/*export interface PickerProps*/
+
+/*export interface WeekPickerProps extends PickerProps, SinglePickerProps*/
+
+/*export interface SinglePickerProps*/
+
+/*export interface PickerProps*/
 
 /*
  [@bs.module] external reactClass: ReasonReact.reactClass = "antd/lib/date-picker";
@@ -576,46 +1145,3 @@ module WeekPicker = {
 
 
  */
-module Locale = {
-  module Lang = {
-    [@bs.deriving abstract]
-    type t =
-      pri {
-        placeholder: string,
-        rangePlaceholder: array(string),
-        today: string,
-        now: string,
-        backToToday: string,
-        ok: string,
-        clear: string,
-        month: string,
-        year: string,
-        timeSelect: string,
-        dateSelect: string,
-        weekSelect: string,
-        monthSelect: string,
-        yearSelect: string,
-        decadeSelect: string,
-        yearFormat: string,
-        dateFormat: string,
-        dayFormat: string,
-        dateTimeFormat: string,
-        monthBeforeYear: bool,
-        previousMonth: string,
-        nextMonth: string,
-        previousYear: string,
-        nextYear: string,
-        previousDecade: string,
-        nextDecade: string,
-        previousCentury: string,
-        nextCentury: string,
-      };
-  };
-
-  [@bs.deriving abstract]
-  type t =
-    pri {
-      lang: Lang.t,
-      timePickerLocale: Antd_TimePicker.Locale.t,
-    };
-};

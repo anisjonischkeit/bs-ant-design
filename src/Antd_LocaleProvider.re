@@ -1,5 +1,5 @@
 [@bs.module]
-external localeProvider : ReasonReact.reactClass = "antd/lib/locale-provider";
+external localeProvider: ReasonReact.reactClass = "antd/lib/locale-provider";
 
 [%bs.raw {|require("antd/lib/locale-provider/style")|}];
 
@@ -91,7 +91,7 @@ module Locale = {
     };
 };
 
-[@bs.obj] external makeProps : (~locale: Locale.t) => _ = "";
+[@bs.obj] external makeProps: (~locale: Locale.t) => _ = "";
 
 let make = (~locale, children) =>
   ReasonReact.wrapJsForReason(
@@ -99,3 +99,28 @@ let make = (~locale, children) =>
     ~props=makeProps(~locale),
     children,
   );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "locale": 'locale,
+        "children": 'children,
+      },
+    ) =>
+    make(~locale=reactProps##locale, reactProps##children)
+  );
+[@bs.obj]
+external makeProps:
+  (~children: 'children, ~locale: 'locale, unit) =>
+  {
+    .
+    "locale": 'locale,
+    "children": 'children,
+  } =
+  "";

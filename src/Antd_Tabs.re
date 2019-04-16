@@ -2,6 +2,162 @@
 
 [%bs.raw {|require("antd/lib/tabs/style")|}];
 
+[@bs.obj]
+external makeProps:
+  (
+    ~defaultActiveKey: string=?,
+    ~onChange: string => unit=?,
+    ~id: string=?,
+    ~className: string=?,
+    ~style: ReactDOMRe.Style.t=?,
+    unit
+  ) =>
+  _ =
+  "";
+
+let make =
+    (
+      ~defaultActiveKey=?,
+      ~onChange=?,
+      ~id=?,
+      ~className=?,
+      ~style=?,
+      children,
+    ) =>
+  ReasonReact.wrapJsForReason(
+    ~reactClass,
+    ~props=
+      makeProps(
+        ~defaultActiveKey?,
+        ~onChange?,
+        ~id?,
+        ~className?,
+        ~style?,
+        (),
+      ),
+    children,
+  );
+
+module TabPane = {
+  [@bs.module "antd/lib/tabs"]
+  external reactClass: ReasonReact.reactClass = "TabPane";
+  [@bs.obj]
+  external makeProps:
+    (
+      ~forceRender: bool=?,
+      ~key: string=?,
+      ~className: string=?,
+      ~tab: ReasonReact.reactElement=?,
+      ~style: ReactDOMRe.Style.t=?,
+      unit
+    ) =>
+    _ =
+    "";
+  let make =
+      (~forceRender=?, ~key=?, ~tab=?, ~className=?, ~style=?, children) =>
+    ReasonReact.wrapJsForReason(
+      ~reactClass,
+      ~props=makeProps(~forceRender?, ~key?, ~tab?, ~className?, ~style?, ()),
+      children,
+    );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "style": option('style),
+          "className": option('className),
+          "tab": option('tab),
+          "key": option('key),
+          "forceRender": option('forceRender),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~style=?reactProps##style,
+        ~className=?reactProps##className,
+        ~tab=?reactProps##tab,
+        ~key=?reactProps##key,
+        ~forceRender=?reactProps##forceRender,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~forceRender: 'forceRender=?,
+      ~key: 'key=?,
+      ~tab: 'tab=?,
+      ~className: 'className=?,
+      ~style: 'style=?,
+      unit
+    ) =>
+    {
+      .
+      "style": option('style),
+      "className": option('className),
+      "tab": option('tab),
+      "key": option('key),
+      "forceRender": option('forceRender),
+      "children": 'children,
+    } =
+    "";
+};
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "onChange": option('onChange),
+        "defaultActiveKey": option('defaultActiveKey),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~onChange=?reactProps##onChange,
+      ~defaultActiveKey=?reactProps##defaultActiveKey,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~defaultActiveKey: 'defaultActiveKey=?,
+    ~onChange: 'onChange=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "onChange": option('onChange),
+    "defaultActiveKey": option('defaultActiveKey),
+    "children": 'children,
+  } =
+  "";
+
 /*
  activeKey	Current TabPane's key	string	-
  animated	Whether to change tabs with animation. Only works while tabPosition="top"\|"bottom"	boolean | {inkBar:boolean, tabPane:boolean}	true, false when type="card"
@@ -35,50 +191,8 @@
    </Tabs>
  */
 
-[@bs.obj]
-external makeProps:
-  (
-    ~defaultActiveKey: string=?,
-    ~onChange: string => unit=?,
-    ~id: string=?,
-    ~className: string=?,
-    ~style: ReactDOMRe.Style.t=?,
-    unit
-  ) =>
-  _ =
-  "";
-
-let make = (~defaultActiveKey=?, ~onChange=?, ~id=?, ~className=?, ~style=?, children) =>
-  ReasonReact.wrapJsForReason(
-    ~reactClass,
-    ~props=makeProps(~defaultActiveKey?, ~onChange?, ~id?, ~className?, ~style?, ()),
-    children,
-  );
-
 /*
  forceRender	Forced render of content in tabs, not lazy render after clicking on tabs	boolean	false
  key	TabPane's key	string	-
  tab	Show text in TabPane's head	string|ReactNode	-
  */
-
-module TabPane = {
-  [@bs.module "antd/lib/tabs"] external reactClass: ReasonReact.reactClass = "TabPane";
-  [@bs.obj]
-  external makeProps:
-    (
-      ~forceRender: bool=?,
-      ~key: string=?,
-      ~className: string=?,
-      ~tab: ReasonReact.reactElement=?,
-      ~style: ReactDOMRe.Style.t=?,
-      unit
-    ) =>
-    _ =
-    "";
-  let make = (~forceRender=?, ~key=?, ~tab=?, ~className=?, ~style=?, children) =>
-    ReasonReact.wrapJsForReason(
-      ~reactClass,
-      ~props=makeProps(~forceRender?, ~key?, ~tab?, ~className?, ~style?, ()),
-      children,
-    );
-};

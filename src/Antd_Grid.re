@@ -88,6 +88,62 @@ module Row = {
         ),
       children,
     );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "prefixCls": option('prefixCls),
+          "style": option('style),
+          "justify": option('justify),
+          "align": option('align),
+          "_type": option('T_type),
+          "gutter": option('gutter),
+          "className": option('className),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~prefixCls=?reactProps##prefixCls,
+        ~style=?reactProps##style,
+        ~justify=?reactProps##justify,
+        ~align=?reactProps##align,
+        ~_type=?reactProps##_type,
+        ~gutter=?reactProps##gutter,
+        ~className=?reactProps##className,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~className: 'className=?,
+      ~gutter: 'gutter=?,
+      ~_type: 'T_type=?,
+      ~align: 'align=?,
+      ~justify: 'justify=?,
+      ~style: 'style=?,
+      ~prefixCls: 'prefixCls=?,
+      unit
+    ) =>
+    {
+      .
+      "prefixCls": option('prefixCls),
+      "style": option('style),
+      "justify": option('justify),
+      "align": option('align),
+      "_type": option('T_type),
+      "gutter": option('gutter),
+      "className": option('className),
+      "children": 'children,
+    } =
+    "";
 };
 
 module Col = {
@@ -177,6 +233,90 @@ module Col = {
         ),
       children,
     );
+  /**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+  let make =
+    ReasonReactCompat.wrapReasonReactForReact(
+      ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+      (
+        reactProps: {
+          .
+          "style": option('style),
+          "prefixCls": option('prefixCls),
+          "xxl": option('xxl),
+          "xl": option('xl),
+          "lg": option('lg),
+          "md": option('md),
+          "sm": option('sm),
+          "xs": option('xs),
+          "pull": option('pull),
+          "push": option('push),
+          "offset": option('offset),
+          "order": option('order),
+          "span": option('span),
+          "className": option('className),
+          "children": 'children,
+        },
+      ) =>
+      make(
+        ~style=?reactProps##style,
+        ~prefixCls=?reactProps##prefixCls,
+        ~xxl=?reactProps##xxl,
+        ~xl=?reactProps##xl,
+        ~lg=?reactProps##lg,
+        ~md=?reactProps##md,
+        ~sm=?reactProps##sm,
+        ~xs=?reactProps##xs,
+        ~pull=?reactProps##pull,
+        ~push=?reactProps##push,
+        ~offset=?reactProps##offset,
+        ~order=?reactProps##order,
+        ~span=?reactProps##span,
+        ~className=?reactProps##className,
+        reactProps##children,
+      )
+    );
+  [@bs.obj]
+  external makeProps:
+    (
+      ~children: 'children,
+      ~className: 'className=?,
+      ~span: 'span=?,
+      ~order: 'order=?,
+      ~offset: 'offset=?,
+      ~push: 'push=?,
+      ~pull: 'pull=?,
+      ~xs: 'xs=?,
+      ~sm: 'sm=?,
+      ~md: 'md=?,
+      ~lg: 'lg=?,
+      ~xl: 'xl=?,
+      ~xxl: 'xxl=?,
+      ~prefixCls: 'prefixCls=?,
+      ~style: 'style=?,
+      unit
+    ) =>
+    {
+      .
+      "style": option('style),
+      "prefixCls": option('prefixCls),
+      "xxl": option('xxl),
+      "xl": option('xl),
+      "lg": option('lg),
+      "md": option('md),
+      "sm": option('sm),
+      "xs": option('xs),
+      "pull": option('pull),
+      "push": option('push),
+      "offset": option('offset),
+      "order": option('order),
+      "span": option('span),
+      "className": option('className),
+      "children": 'children,
+    } =
+    "";
 };
 
 let makeGutterBreakpoints = Row.makeGutterBreakpoints;

@@ -79,6 +79,106 @@ let make =
       ),
     children,
   );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "onRemove": option('onRemove),
+        "onPreview": option('onPreview),
+        "onChange": option('onChange),
+        "withCredentials": option('withCredentials),
+        "supportServerRender": option('supportServerRender),
+        "showUploadList": option('showUploadList),
+        "name": option('name),
+        "multiple": option('multiple),
+        "listType": option('listType),
+        "disabled": option('disabled),
+        "customRequest": option('customRequest),
+        "beforeUpload": option('beforeUpload),
+        "directory": option('directory),
+        "action": 'action,
+        "accept": option('accept),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~onRemove=?reactProps##onRemove,
+      ~onPreview=?reactProps##onPreview,
+      ~onChange=?reactProps##onChange,
+      ~withCredentials=?reactProps##withCredentials,
+      ~supportServerRender=?reactProps##supportServerRender,
+      ~showUploadList=?reactProps##showUploadList,
+      ~name=?reactProps##name,
+      ~multiple=?reactProps##multiple,
+      ~listType=?reactProps##listType,
+      ~disabled=?reactProps##disabled,
+      ~customRequest=?reactProps##customRequest,
+      ~beforeUpload=?reactProps##beforeUpload,
+      ~directory=?reactProps##directory,
+      ~action=reactProps##action,
+      ~accept=?reactProps##accept,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~accept: 'accept=?,
+    ~action: 'action,
+    ~directory: 'directory=?,
+    ~beforeUpload: 'beforeUpload=?,
+    ~customRequest: 'customRequest=?,
+    ~disabled: 'disabled=?,
+    ~listType: 'listType=?,
+    ~multiple: 'multiple=?,
+    ~name: 'name=?,
+    ~showUploadList: 'showUploadList=?,
+    ~supportServerRender: 'supportServerRender=?,
+    ~withCredentials: 'withCredentials=?,
+    ~onChange: 'onChange=?,
+    ~onPreview: 'onPreview=?,
+    ~onRemove: 'onRemove=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "onRemove": option('onRemove),
+    "onPreview": option('onPreview),
+    "onChange": option('onChange),
+    "withCredentials": option('withCredentials),
+    "supportServerRender": option('supportServerRender),
+    "showUploadList": option('showUploadList),
+    "name": option('name),
+    "multiple": option('multiple),
+    "listType": option('listType),
+    "disabled": option('disabled),
+    "customRequest": option('customRequest),
+    "beforeUpload": option('beforeUpload),
+    "directory": option('directory),
+    "action": 'action,
+    "accept": option('accept),
+    "children": 'children,
+  } =
+  "";
 
 /*
  accept	File types that can be accepted. See input accept Attribute	string	-

@@ -1,6 +1,7 @@
 [%bs.raw {|require("antd/lib/time-picker/style")|}];
 
-[@bs.module "antd/lib/time-picker"] external reactClass: ReasonReact.reactClass = "default";
+[@bs.module "antd/lib/time-picker"]
+external reactClass: ReasonReact.reactClass = "default";
 
 type moment = MomentRe.Moment.t;
 
@@ -113,6 +114,151 @@ let make =
       ),
     children,
   );
+
+module Locale = {
+  [@bs.deriving abstract]
+  type t = pri {placeholder: string};
+};
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "popupClassName": option('popupClassName),
+        "defaultOpenValue": option('defaultOpenValue),
+        "clearText": option('clearText),
+        "allowEmpty": option('allowEmpty),
+        "secondStep": option('secondStep),
+        "minuteStep": option('minuteStep),
+        "hourStep": option('hourStep),
+        "focusOnOpen": option('focusOnOpen),
+        "use12Hours": option('use12Hours),
+        "addon": option('addon),
+        "getPopupContainer": option('getPopupContainer),
+        "disabledSeconds": option('disabledSeconds),
+        "disabledMinutes": option('disabledMinutes),
+        "disabledHours": option('disabledHours),
+        "hideDisabledOptions": option('hideDisabledOptions),
+        "prefixCls": option('prefixCls),
+        "placeholder": option('placeholder),
+        "disabled": option('disabled),
+        "onOpenChange": option('onOpenChange),
+        "onChange": option('onChange),
+        "format": option('format),
+        "_open": option('T_open),
+        "defaultValue": option('defaultValue),
+        "value": option('value),
+        "size": option('size),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~popupClassName=?reactProps##popupClassName,
+      ~defaultOpenValue=?reactProps##defaultOpenValue,
+      ~clearText=?reactProps##clearText,
+      ~allowEmpty=?reactProps##allowEmpty,
+      ~secondStep=?reactProps##secondStep,
+      ~minuteStep=?reactProps##minuteStep,
+      ~hourStep=?reactProps##hourStep,
+      ~focusOnOpen=?reactProps##focusOnOpen,
+      ~use12Hours=?reactProps##use12Hours,
+      ~addon=?reactProps##addon,
+      ~getPopupContainer=?reactProps##getPopupContainer,
+      ~disabledSeconds=?reactProps##disabledSeconds,
+      ~disabledMinutes=?reactProps##disabledMinutes,
+      ~disabledHours=?reactProps##disabledHours,
+      ~hideDisabledOptions=?reactProps##hideDisabledOptions,
+      ~prefixCls=?reactProps##prefixCls,
+      ~placeholder=?reactProps##placeholder,
+      ~disabled=?reactProps##disabled,
+      ~onOpenChange=?reactProps##onOpenChange,
+      ~onChange=?reactProps##onChange,
+      ~format=?reactProps##format,
+      ~_open=?reactProps##_open,
+      ~defaultValue=?reactProps##defaultValue,
+      ~value=?reactProps##value,
+      ~size=?reactProps##size,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~size: 'size=?,
+    ~value: 'value=?,
+    ~defaultValue: 'defaultValue=?,
+    ~_open: 'T_open=?,
+    ~format: 'format=?,
+    ~onChange: 'onChange=?,
+    ~onOpenChange: 'onOpenChange=?,
+    ~disabled: 'disabled=?,
+    ~placeholder: 'placeholder=?,
+    ~prefixCls: 'prefixCls=?,
+    ~hideDisabledOptions: 'hideDisabledOptions=?,
+    ~disabledHours: 'disabledHours=?,
+    ~disabledMinutes: 'disabledMinutes=?,
+    ~disabledSeconds: 'disabledSeconds=?,
+    ~getPopupContainer: 'getPopupContainer=?,
+    ~addon: 'addon=?,
+    ~use12Hours: 'use12Hours=?,
+    ~focusOnOpen: 'focusOnOpen=?,
+    ~hourStep: 'hourStep=?,
+    ~minuteStep: 'minuteStep=?,
+    ~secondStep: 'secondStep=?,
+    ~allowEmpty: 'allowEmpty=?,
+    ~clearText: 'clearText=?,
+    ~defaultOpenValue: 'defaultOpenValue=?,
+    ~popupClassName: 'popupClassName=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "popupClassName": option('popupClassName),
+    "defaultOpenValue": option('defaultOpenValue),
+    "clearText": option('clearText),
+    "allowEmpty": option('allowEmpty),
+    "secondStep": option('secondStep),
+    "minuteStep": option('minuteStep),
+    "hourStep": option('hourStep),
+    "focusOnOpen": option('focusOnOpen),
+    "use12Hours": option('use12Hours),
+    "addon": option('addon),
+    "getPopupContainer": option('getPopupContainer),
+    "disabledSeconds": option('disabledSeconds),
+    "disabledMinutes": option('disabledMinutes),
+    "disabledHours": option('disabledHours),
+    "hideDisabledOptions": option('hideDisabledOptions),
+    "prefixCls": option('prefixCls),
+    "placeholder": option('placeholder),
+    "disabled": option('disabled),
+    "onOpenChange": option('onOpenChange),
+    "onChange": option('onChange),
+    "format": option('format),
+    "_open": option('T_open),
+    "defaultValue": option('defaultValue),
+    "value": option('value),
+    "size": option('size),
+    "children": 'children,
+  } =
+  "";
 
 /*
  [@bs.module] external reactClass: ReasonReact.reactClass = "antd/lib/time-picker";
@@ -251,7 +397,3 @@ let make =
 
 
  */
-module Locale = {
-  [@bs.deriving abstract]
-  type t = pri {placeholder: string};
-};

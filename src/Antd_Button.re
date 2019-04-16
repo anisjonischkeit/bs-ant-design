@@ -101,3 +101,103 @@ let make =
       ),
     children,
   );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "download": option('download),
+        "href": option('href),
+        "target": option('target),
+        "ghost": option('ghost),
+        "disabled": option('disabled),
+        "loading": option('loading),
+        "tabIndex": option('tabIndex),
+        "onMouseDown": option('onMouseDown),
+        "onMouseUp": option('onMouseUp),
+        "onClick": option('onClick),
+        "size": option('size),
+        "shape": option('shape),
+        "icon": option('icon),
+        "htmlType": option('htmlType),
+        "_type": option('T_type),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~download=?reactProps##download,
+      ~href=?reactProps##href,
+      ~target=?reactProps##target,
+      ~ghost=?reactProps##ghost,
+      ~disabled=?reactProps##disabled,
+      ~loading=?reactProps##loading,
+      ~tabIndex=?reactProps##tabIndex,
+      ~onMouseDown=?reactProps##onMouseDown,
+      ~onMouseUp=?reactProps##onMouseUp,
+      ~onClick=?reactProps##onClick,
+      ~size=?reactProps##size,
+      ~shape=?reactProps##shape,
+      ~icon=?reactProps##icon,
+      ~htmlType=?reactProps##htmlType,
+      ~_type=?reactProps##_type,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~_type: 'T_type=?,
+    ~htmlType: 'htmlType=?,
+    ~icon: 'icon=?,
+    ~shape: 'shape=?,
+    ~size: 'size=?,
+    ~onClick: 'onClick=?,
+    ~onMouseUp: 'onMouseUp=?,
+    ~onMouseDown: 'onMouseDown=?,
+    ~tabIndex: 'tabIndex=?,
+    ~loading: 'loading=?,
+    ~disabled: 'disabled=?,
+    ~ghost: 'ghost=?,
+    ~target: 'target=?,
+    ~href: 'href=?,
+    ~download: 'download=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "download": option('download),
+    "href": option('href),
+    "target": option('target),
+    "ghost": option('ghost),
+    "disabled": option('disabled),
+    "loading": option('loading),
+    "tabIndex": option('tabIndex),
+    "onMouseDown": option('onMouseDown),
+    "onMouseUp": option('onMouseUp),
+    "onClick": option('onClick),
+    "size": option('size),
+    "shape": option('shape),
+    "icon": option('icon),
+    "htmlType": option('htmlType),
+    "_type": option('T_type),
+    "children": 'children,
+  } =
+  "";

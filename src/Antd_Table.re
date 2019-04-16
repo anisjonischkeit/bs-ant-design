@@ -5,6 +5,113 @@
 [@bs.deriving jsConverter]
 type sizeType = [ | `default | `middle | `small];
 
+[@bs.deriving abstract]
+type columnParams = {
+  .
+  "title": ReasonReact.reactElement,
+  "dataIndex": string,
+  "key": string,
+};
+
+[@bs.obj]
+external makeProps:
+  (
+    ~bordered: bool=?,
+    ~childrenColumnName: array(string)=?,
+    ~columns: array(columnParams)=?,
+    ~dataSource: 'a=?,
+    ~id: string=?,
+    ~className: string=?,
+    ~style: ReactDOMRe.Style.t=?,
+    unit
+  ) =>
+  _ =
+  "";
+
+let make =
+    (
+      ~bordered=?,
+      ~childrenColumnName=?,
+      ~columns=?,
+      ~dataSource=?,
+      ~id=?,
+      ~className=?,
+      ~style=?,
+      children,
+    ) =>
+  ReasonReact.wrapJsForReason(
+    ~reactClass,
+    ~props=
+      makeProps(
+        ~bordered?,
+        ~childrenColumnName=?
+          Js.Option.map((. b) => Array.of_list(b), childrenColumnName),
+        ~columns=?Js.Option.map((. b) => Array.of_list(b), columns),
+        ~dataSource=?Js.Option.map((. b) => Array.of_list(b), dataSource),
+        ~id?,
+        ~className?,
+        ~style?,
+        (),
+      ),
+    children,
+  );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "dataSource": option('dataSource),
+        "columns": option('columns),
+        "childrenColumnName": option('childrenColumnName),
+        "bordered": option('bordered),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~dataSource=?reactProps##dataSource,
+      ~columns=?reactProps##columns,
+      ~childrenColumnName=?reactProps##childrenColumnName,
+      ~bordered=?reactProps##bordered,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~bordered: 'bordered=?,
+    ~childrenColumnName: 'childrenColumnName=?,
+    ~columns: 'columns=?,
+    ~dataSource: 'dataSource=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "dataSource": option('dataSource),
+    "columns": option('columns),
+    "childrenColumnName": option('childrenColumnName),
+    "bordered": option('bordered),
+    "children": 'children,
+  } =
+  "";
+
 /*
  bordered	Whether to show all table borders	boolean	false
  childrenColumnName	The column contains children to display	string[]	children
@@ -58,43 +165,3 @@ type sizeType = [ | `default | `middle | `small];
    sortOrder?: boolean | ('ascend' | 'descend');
  }
  */
-
-[@bs.deriving abstract]
-type columnParams = {
-  .
-  "title": ReasonReact.reactElement,
-  "dataIndex": string,
-  "key": string,
-};
-
-[@bs.obj]
-external makeProps:
-  (
-    ~bordered: bool=?,
-    ~childrenColumnName: array(string)=?,
-    ~columns: array(columnParams)=?,
-    ~dataSource: 'a=?,
-    ~id: string=?,
-    ~className: string=?,
-    ~style: ReactDOMRe.Style.t=?,
-    unit
-  ) =>
-  _ =
-  "";
-
-let make = (~bordered=?, ~childrenColumnName=?, ~columns=?, ~dataSource=?, ~id=?, ~className=?, ~style=?, children) =>
-  ReasonReact.wrapJsForReason(
-    ~reactClass,
-    ~props=
-      makeProps(
-        ~bordered?,
-        ~childrenColumnName=?Js.Option.map((. b) => Array.of_list(b), childrenColumnName),
-        ~columns=?Js.Option.map((. b) => Array.of_list(b), columns),
-        ~dataSource=?Js.Option.map((. b) => Array.of_list(b), dataSource),
-        ~id?,
-        ~className?,
-        ~style?,
-        (),
-      ),
-    children,
-  );

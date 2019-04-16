@@ -7,7 +7,6 @@ module IconName = Antd_IconName;
 [@bs.deriving jsConverter]
 type avatarShape = [ | `circle | `square];
 
-/* leaving this as int */
 [@bs.deriving jsConverter]
 type avatarSize = [ | `small | `default | `large];
 
@@ -28,7 +27,19 @@ external makeProps:
   _ =
   "";
 
-let make = (~icon=?, ~shape=?, ~size=?, ~src=?, ~alt=?, ~onError=?, ~id=?, ~className=?, ~style=?, children) =>
+let make =
+    (
+      ~icon=?,
+      ~shape=?,
+      ~size=?,
+      ~src=?,
+      ~alt=?,
+      ~onError=?,
+      ~id=?,
+      ~className=?,
+      ~style=?,
+      children,
+    ) =>
   ReasonReact.wrapJsForReason(
     ~reactClass,
     ~props=
@@ -46,6 +57,72 @@ let make = (~icon=?, ~shape=?, ~size=?, ~src=?, ~alt=?, ~onError=?, ~id=?, ~clas
       ),
     children,
   );
+/**
+ * This is a wrapper created to let this component be used from the new React api.
+ * Please convert this component to a [@react.component] function and then remove this wrapping code.
+ */
+let make =
+  ReasonReactCompat.wrapReasonReactForReact(
+    ~component=ReasonReact.statelessComponent("TemporaryRefactorComponent"),
+    (
+      reactProps: {
+        .
+        "style": option('style),
+        "className": option('className),
+        "id": option('id),
+        "onError": option('onError),
+        "alt": option('alt),
+        "src": option('src),
+        "size": option('size),
+        "shape": option('shape),
+        "icon": option('icon),
+        "children": 'children,
+      },
+    ) =>
+    make(
+      ~style=?reactProps##style,
+      ~className=?reactProps##className,
+      ~id=?reactProps##id,
+      ~onError=?reactProps##onError,
+      ~alt=?reactProps##alt,
+      ~src=?reactProps##src,
+      ~size=?reactProps##size,
+      ~shape=?reactProps##shape,
+      ~icon=?reactProps##icon,
+      reactProps##children,
+    )
+  );
+[@bs.obj]
+external makeProps:
+  (
+    ~children: 'children,
+    ~icon: 'icon=?,
+    ~shape: 'shape=?,
+    ~size: 'size=?,
+    ~src: 'src=?,
+    ~alt: 'alt=?,
+    ~onError: 'onError=?,
+    ~id: 'id=?,
+    ~className: 'className=?,
+    ~style: 'style=?,
+    unit
+  ) =>
+  {
+    .
+    "style": option('style),
+    "className": option('className),
+    "id": option('id),
+    "onError": option('onError),
+    "alt": option('alt),
+    "src": option('src),
+    "size": option('size),
+    "shape": option('shape),
+    "icon": option('icon),
+    "children": 'children,
+  } =
+  "";
+
+/* leaving this as int */
 
 /*
  icon	the Icon type for an icon avatar, see Icon Component	string	-
